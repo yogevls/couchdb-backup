@@ -1,0 +1,32 @@
+{
+   "file_checksum":{
+     "cs_file_path" : "",
+     "algorithm" : "",
+     "read_block_size" : ""
+  },
+   "aws_credentials":{
+     "aws_access_key_id" : "",
+     "aws_secret_access_key" : "",
+     "aws_region" : ""
+  },
+    "couchdb_backup":{
+      "db_file_path" : "",
+      "db_url" : ""
+  },
+    "pgp_file_encrypt":{
+      "gpg_home" : "",
+      "gpg_file_path" : ""
+  },
+    "backup_tar_gz":{
+      "source_file_path" : "",
+      "tgz_file_path" : ""
+  },
+    "s3_uploader":{
+      "db_backup_bucket" : ""
+  },
+    "send_nsca":{
+      "nsca_server_name" : "",
+      "service_description" : ""
+  }
+
+}
