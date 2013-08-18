@@ -27,7 +27,7 @@ def backup_tar_gz(source_file_path, tgz_file_path):
 
 
 def pgp_file_encrypt(gpg_home, gpg_file_path):
-    gpg = gnupg.GPG(homedir=gpg_home)
+    gpg = gnupg.GPG(gnupghome=gpg_home)
     with open(gpg_file_path, 'r') as f:
         gpg.encrypt_file(f, output=gpg_file_path + '.gpg')
     print 'Finished encrypting %s - Saved as %s' % (gpg_home, gpg_file_path + '.gpg',)
@@ -112,9 +112,9 @@ if __name__ == '__main__':
     cs_file_path = config['file_checksum']['cs_file_path']
     algorithm = config['file_checksum']['algorithm']
     read_block_size = config['file_checksum']['read_block_size']
-    db_backup_bucket = ['s3_uploader']['db_backup_bucket']
-    nsca_server_name = ['send_nsca']['nsca_server_name']
-    service_description = ['send_nsca']['service_description']
+    db_backup_bucket = config['s3_uploader']['db_backup_bucket']
+    nsca_server_name = config['send_nsca']['nsca_server_name']
+    service_description = config['send_nsca']['service_description']
 
     update_seq = get_update_seq(db_url, db_backup_bucket, gpg_file_path)
 
@@ -130,7 +130,8 @@ if __name__ == '__main__':
         if args.force:
             try:
                 run_backup()
-                send_nsca(nsca_server_name, service_description, 1, 'CouchDB Backup finished successfully using --force')
+                send_nsca(nsca_server_name, service_description, 1, 'CouchDB Backup finished successfully using'
+                                                                    ' --force')
             except Exception as e:
                 send_nsca(nsca_server_name, service_description, 2, e)
                 print e
